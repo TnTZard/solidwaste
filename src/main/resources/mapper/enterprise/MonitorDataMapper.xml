@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.anzhi.solidwaste.enterprise.mapper.MonitorDataMapper">
+
+
+    <select id="findHistoryDatas" resultType="com.anzhi.solidwaste.enterprise.vo.HistoryDataVo">
+
+        select
+                d.`enterprise_name` as enterpriseName,
+                ms.`depot_id` as depotId,
+                md.`monitor_name` as monitorName,
+                md.`fan_status` as fanStatus,
+                md.`governing_status` as governingStatus,
+                md.`hydrogen_sulfide` as hydrogenSulfide,
+                md.`ammonia` as ammonia,
+                md.`oxygen` as oxygen
+        from monitor_data as md
+        left join monitor_system as ms on(ms.`monitor_name` = md.`monitor_name`)
+        left join depot as d on(d.`depot_id` = ms.`depot_id`)
+        <where>
+            <if test="depotName != null and depotName != ''">
+                d.`depot_id` = #{depotName}
+            </if>
+            <if test="enterpriseName != null and enterpriseName != ''">
+                d.`enterprise_name` = #{ enterpriseName }
+            </if>
+            <if test=" startTime != null and startTime != ''">
+                and md.`gmt_monitor` > #{startTime}
+            </if>
+            <if test=" endTime != null and endTime != ''">
+                <![CDATA[
+				  and md.`gmt_monitor` < #{endTime}
+			    ]]>
+            </if>
+        </where>
+    </select>
+
+
+</mapper>

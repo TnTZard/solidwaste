@@ -48,13 +48,17 @@ public class JWTFilter extends BasicHttpAuthenticationFilter {
         List<String> list = new ArrayList<>(anonUrlList);
 
         //  放行 swagger2
-
+        list.add("/doc.html");
+        list.add("/swagger-resources");
+        list.add("/v2/api-docs");
+        list.add("/v2/api-docs-ext");
+        list.add("/webjars/**");
 
         boolean match = false;
         for(String u: list){
-            System.out.println("进来的PATH ： " + httpServletRequest.getRequestURI());
+            //System.out.println("进来的PATH ： " + httpServletRequest.getRequestURI());
             if(pathMatcher.match(u, httpServletRequest.getRequestURI())) {
-                log.info("认证PATH ： " + httpServletRequest.getRequestURI() + "   ------");
+                //log.info("认证PATH ： " + httpServletRequest.getRequestURI() + "   ------");
                 System.out.println();
                 match = true;
             }

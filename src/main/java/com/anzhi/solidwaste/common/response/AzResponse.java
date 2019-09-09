@@ -17,10 +17,10 @@ public class AzResponse<T> {
     @ApiModelProperty(value = "返回对象（数据）")
     private T data;
 
-    @ApiModelProperty(value = "错误编号")
+    @ApiModelProperty(value = "响应编号")
     private Integer errCode;
 
-    @ApiModelProperty(value = "错误信息")
+    @ApiModelProperty(value = "响应信息")
     private String message;
 
     public boolean isSuccess() {

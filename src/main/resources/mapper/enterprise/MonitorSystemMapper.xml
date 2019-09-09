@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.anzhi.solidwaste.enterprise.mapper.MonitorSystemMapper">
+
+    <resultMap id="monitorData" type="com.anzhi.solidwaste.enterprise.vo.MonitorRealTimeVo">
+        <result column="enterpriseName" jdbcType="VARCHAR" property="enterpriseName" />
+        <result column="industryCategory" jdbcType="VARCHAR" property="industryCategory" />
+        <collection property="monitorSystemVoList" ofType="com.anzhi.solidwaste.enterprise.vo.MonitorSystemVo">
+                    <result column="ammonia" property="ammonia"/>
+                    <result column="depotId" property="depotId"/>
+                    <result column="fanStatus" property="fanStatus"/>
+                    <result column="governingStatus" property="governingStatus"/>
+                    <result column="hydrogenSulfide" property="hydrogenSulfide"/>
+                    <result column="oxygen" property="oxygen"/>
+        </collection>
+
+    </resultMap>
+
+    <select id="findAllByCondition" resultMap="monitorData">
+        select
+                e.`name` as enterpriseName,
+                e.`industry_category` as industryCategory,
+                ms.`depot_id` as depotId,
+                ms.`fan_status` as fanStatus,
+                ms.`governing_status` as governingStatus,
+                ms.`hydrogen_sulfide` as hydrogenSulfide,
+                ms.`ammonia` as ammonia,
+                ms.`oxygen` as oxygen
+        from monitor_system as ms
+        left join depot as d on (ms.`depot_id` = d.`depot_id`)
+        left join enterprise as e on (d.`enterprise_name` = e.`name`)
+        <where>
+            <if test="monitorSearch.depotName != null and monitorSearch.depotName != ''">
+                d.`depot_id` = #{monitorSearch.depotName}
+            </if>
+            <if test="monitorSearch.enterpriseName != null and monitorSearch.enterpriseName != ''">
+                e.`name` = #{ monitorSearch.enterpriseName }
+            </if>
+        </where>
+
+    </select>
+
+
+</mapper>

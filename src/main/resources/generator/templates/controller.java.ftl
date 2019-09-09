@@ -1,6 +1,7 @@
 package ${package.Controller};
 
 import com.anzhi.solidwaste.common.response.*;
+import com.anzhi.solidwaste.common.domain.QueryRequest;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import io.swagger.annotations.Api;

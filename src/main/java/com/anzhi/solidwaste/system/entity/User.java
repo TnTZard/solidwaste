@@ -14,7 +14,7 @@ import lombok.experimental.Accessors;
  * 
  *
  * @author Anzhi
- * @since 2019-09-02
+ * @since 2019-09-03
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -24,7 +24,20 @@ public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-            @TableId(value = "id", type = IdType.AUTO)
+    /**
+     * 账户状态 0冻结 1合法
+     */
+    public static final Integer STATUS_VALID = 1;
+
+    public static final Integer STATUS_LOCK = 0;
+
+    /**
+     * 默认密码
+     */
+    public static final String DEFAULT_PASSWORD = "anzhi";
+
+
+    @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
     @ApiModelProperty(value = "账号(手机号)")
@@ -84,5 +97,7 @@ public class User implements Serializable {
     @ApiModelProperty(value = "修改时间")
     private LocalDateTime gmtModified;
 
+    @ApiModelProperty(hidden = true)
+    private transient String userId;
 
 }

@@ -11,7 +11,7 @@ public class AzConstant {
     /**
      * user缓存前缀
      */
-    public static final String USER_CACHE_PREFIX = "az.cache.user.";
+    public static final String USER_CACHE_PREFIX = "solidwaste.cache.user.";
 
     /**
      *  user列表缓存前缀
@@ -21,27 +21,27 @@ public class AzConstant {
     /**
      * user角色缓存前缀
      */
-    public static final String USER_ROLE_CACHE_PREFIX = "az.cache.user.role.";
+    public static final String USER_ROLE_CACHE_PREFIX = "solidwaste.cache.user.role.";
 
     /**
      * user权限缓存前缀
      */
-    public static final String USER_PERMISSION_CACHE_PREFIX = "az.cache.user.permission.";
+    public static final String USER_PERMISSION_CACHE_PREFIX = "solidwaste.cache.user.permission.";
 
     /**
      * user个性化配置前缀
      */
-    public static final String USER_CONFIG_CACHE_PREFIX = "az.cache.user.config.";
+    public static final String USER_CONFIG_CACHE_PREFIX = "solidwaste.cache.user.config.";
 
     /**
      * token缓存前缀
      */
-    public static final String TOKEN_CACHE_PREFIX = "az.cache.token.";
+    public static final String TOKEN_CACHE_PREFIX = "solidwaste.cache.token.";
 
     /**
      * 存储在线用户的 zset前缀
      */
-    public static final String ACTIVE_USERS_ZSET_PREFIX = "az.user.active";
+    public static final String ACTIVE_USERS_ZSET_PREFIX = "solidwaste.user.active";
 
 
     /**
