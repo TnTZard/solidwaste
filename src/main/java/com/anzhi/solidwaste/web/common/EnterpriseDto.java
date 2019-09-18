@@ -1,40 +1,21 @@
-package com.anzhi.solidwaste.enterprise.entity;
+package com.anzhi.solidwaste.web.common;
 
-import java.math.BigDecimal;
-import com.baomidou.mybatisplus.annotation.IdType;
+import com.anzhi.solidwaste.enterprise.entity.Depot;
+import com.anzhi.solidwaste.enterprise.entity.WasteCategory;
 import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import java.time.LocalDateTime;
-import java.io.Serializable;
-import java.util.List;
-
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.experimental.Accessors;
+
+import java.math.BigDecimal;
+import java.util.List;
 
 /**
- * 
- *
- * @author Anzhi
- * @since 2019-09-03
+ * @author anzhi
+ * @date 2019/9/17 10:57
  */
 @Data
-@EqualsAndHashCode(callSuper = false)
-@Accessors(chain = true)
-@ApiModel(value="Enterprise对象", description="")
-public class Enterprise implements Serializable {
+public class EnterpriseDto extends RegisterDto {
 
-    private static final long serialVersionUID = 1L;
-
-    @ApiModelProperty(value = "企业ID(数据库自增)")
-    @TableId(value = "id", type = IdType.AUTO)
-    private Integer id;
-
-    /**
-     * 企业名称
-     */
     @ApiModelProperty(value = "企业名称")
     private String name;
 
@@ -92,25 +73,14 @@ public class Enterprise implements Serializable {
     @ApiModelProperty(value = "街道ID", hidden = true)
     private Integer street;
 
-    @ApiModelProperty(value = "是否启用 0：冻结 1：正常使用  2：未审核")
-    private Integer isActive;
-
-    @ApiModelProperty(value = "创建时间")
-    private LocalDateTime gmtCreate;
-
-    @ApiModelProperty(value = "修改时间")
-    private LocalDateTime gmtModified;
-
     /**
      * 仓库列表
      */
-    @TableField(exist = false)
     private List<Depot> depotList ;
-
 
     /**
      * 危废列表
      */
-    @TableField(exist = false)
     private List<WasteCategory> wasteCategories;
+
 }

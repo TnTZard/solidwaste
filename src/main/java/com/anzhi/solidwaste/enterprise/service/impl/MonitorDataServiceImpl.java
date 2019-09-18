@@ -24,7 +24,13 @@ public class MonitorDataServiceImpl extends ServiceImpl<MonitorDataMapper, Monit
 
     @Override
     public List<HistoryDataVo> listHistoryData(QueryRequest queryRequest, DataSearch dataSearch) {
-        return this.baseMapper.findHistoryDatas(dataSearch);
+
+        int num = queryRequest.getPageNum();
+        int size = queryRequest.getPageSize();
+        queryRequest.setPageNum((num-1)*size);
+
+
+        return this.baseMapper.findHistoryDatas(queryRequest, dataSearch);
     }
 
 

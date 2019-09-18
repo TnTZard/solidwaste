@@ -5,11 +5,13 @@ import com.anzhi.solidwaste.common.response.*;
 
 import com.anzhi.solidwaste.enterprise.entity.Enterprise;
 import com.anzhi.solidwaste.enterprise.entity.MonitorData;
+import com.anzhi.solidwaste.enterprise.search.AreaSearch;
 import com.anzhi.solidwaste.enterprise.search.DataSearch;
 import com.anzhi.solidwaste.enterprise.search.MonitorSearch;
 import com.anzhi.solidwaste.enterprise.service.MonitorDataService;
 import com.anzhi.solidwaste.enterprise.service.MonitorSystemService;
 import com.anzhi.solidwaste.enterprise.vo.HistoryDataVo;
+import com.anzhi.solidwaste.enterprise.vo.IndexVo;
 import com.anzhi.solidwaste.enterprise.vo.MonitorRealTimeVo;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -33,27 +35,19 @@ import java.util.List;
 @RequestMapping("/enterprise/monitor-system")
 public class MonitorSystemController {
 
-
-
     @Autowired
     private MonitorSystemService monitorSystemService;
 
     @Autowired
     private MonitorDataService monitorDataService;
 
-    @PostMapping("/")
-    public AzResponse add(@Validated @RequestBody Object vo){
-
-        return null;
+    @ApiOperation("首页数据")
+    @GetMapping("/index")
+    public AzResponse<IndexVo> get(AreaSearch areaSearch){
+        return new AzResponse(true, this.monitorSystemService.findIndexInfo(areaSearch), 200, "查询成功");
     }
 
-    @GetMapping("/")
-    public AzResponse get(@ApiParam(name = "id", value = "id") @RequestParam String id){
 
-        return null;
-    }
-
-    @ApiOperation("监控列表(监控概览)")
     @GetMapping("/page")
     public AzResponse page(QueryRequest queryRequest, MonitorSearch monitorSearch){
         IPage<Enterprise> result = this.monitorSystemService.listAll(queryRequest, monitorSearch);
@@ -77,7 +71,6 @@ public class MonitorSystemController {
         result.setHistoryDataVoList(historyDataVos);
         return new AzResponse(true, result, 200, "查询成功");
     }
-
 
     @PutMapping("/")
     public AzResponse update(@Validated @RequestBody Object vo){

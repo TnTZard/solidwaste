@@ -7,6 +7,7 @@ import com.anzhi.solidwaste.common.domain.QueryRequest;
 import com.anzhi.solidwaste.common.service.UploadService;
 import com.anzhi.solidwaste.enterprise.entity.Enterprise;
 import com.anzhi.solidwaste.enterprise.service.EnterpriseService;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiOperationSupport;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
 
 /**
  * @author Anzhi
@@ -37,11 +39,9 @@ public class EnterpriseController {
 
     @ApiOperation("新增企业")
     @PostMapping("/")
-    public AzResponse add(@Validated @RequestBody Enterprise enterprise,  @RequestParam("files") MultipartFile[] multipartFiles) throws AzException {
+    public AzResponse add(@Validated Enterprise enterprise,  @RequestParam("files") MultipartFile[] files) throws AzException {
         try {
-            UploadObject uploadObject = new UploadObject(multipartFiles);
-            this.uploadService.uploadFile(uploadObject);
-            this.enterpriseService.createEnterprise(enterprise, uploadObject);
+            this.enterpriseService.createEnterprise(enterprise, files);
             return new AzResponse(true, null, 200, "新增成功");
         } catch (Exception e) {
             throw new AzException(e.getMessage());
@@ -57,8 +57,11 @@ public class EnterpriseController {
 
     @ApiOperation("获取企业列表")
     @GetMapping("/page")
-    public AzResponse page(QueryRequest queryRequest, Object vo) {
-        return null;
+    public AzResponse page(QueryRequest queryRequest) {
+
+        List<Enterprise> enterpriseList = this.enterpriseService.list();
+
+        return new AzResponse(true, enterpriseList, 200, "查询成功");
     }
 
     @ApiOperation("更新企业")

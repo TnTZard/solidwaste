@@ -88,6 +88,9 @@ public class User implements Serializable {
     @ApiModelProperty(value = "身份证反面")
     private String idCardBack;
 
+    @ApiModelProperty(value = "账号类型 0：企业 1：环保管理  2：个人")
+    private Integer type;
+
     @ApiModelProperty(value = "是否启用 0：正常使用  1：冻结  2：未审核")
     private Integer isActive;
 

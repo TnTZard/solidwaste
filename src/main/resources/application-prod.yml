@@ -3,5 +3,73 @@ server:
 
 spring:
   profiles: prod
+  application:
+    name: anzhi-waterStation
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.p6spy.engine.spy.P6SpyDriver
+    #driver-class-name: com.mysql.cj.jdbc.Driver
+    #url: jdbc:mysql://192.168.147.129:3306/lampblackDB?serverTimezone=UTC&characterEncoding=utf8&useUnicode=true&useSSL=false
+    #url: jdbc:p6spy:mysql://47.112.16.168:8066/solidDB?serverTimezone=GMT%2B8&characterEncoding=utf8&useUnicode=true&useSSL=false
+    url: jdbc:p6spy:mysql://47.112.16.168:3306/solidwasteDB?serverTimezone=GMT%2B8&characterEncoding=utf8&useUnicode=true&useSSL=false
+    username: root
+    password: root
+    dbcp2:
+      min-idle: 5
+      initial-size: 5
+      max-total: 5
+      max-wait-millis: 200
+
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 1000MB
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+    encoding: UTF-8
+    cache: false
+
+  redis:
+    host: 47.112.16.168
+    port: 6379
+    password: anzhi
+    jedis:
+      pool:
+        min-idle: 8
+        max-idle: 500
+        max-active: 2000
+        max-wait: 10000
+    timeout: 0
+
+mybatis-plus:
+  type-aliases-package: com.anzhi.solidwaste.*.entity
+  mapper-locations: classpath:mapper/**/*.xml
+  configuration:
+    jdbc-type-for-null: null
+  #    # 这个配置会将执行的sql打印出来，在开发或测试的时候可以用
+  #    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    # 关闭 mybatis-plus的 banner
+    banner: false
+#  type-handlers-package: com.anzhi.common.handler
+
+fdfs:
+  so-timeout: 1500
+  connect-timeout: 600
+  resHost: 47.112.16.168
+  storagePort: 8886
+  thumb-image:
+    width: 300
+    height: 300
+  tracker-list:
+    - 47.112.16.168:22123
 
 
+
+az:
+  shiro:
+    #anonUrl: /login,/logout/**,/regist,/system/user/**,/**
+    anonUrl: /login,/**
+    jwtTimeOut: 3600
+  open-aop-lpg: true

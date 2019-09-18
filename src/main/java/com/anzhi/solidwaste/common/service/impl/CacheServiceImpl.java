@@ -2,8 +2,11 @@ package com.anzhi.solidwaste.common.service.impl;
 
 
 import com.anzhi.solidwaste.common.domain.AzConstant;
+import com.anzhi.solidwaste.common.exception.RedisConnectException;
 import com.anzhi.solidwaste.common.service.CacheService;
 import com.anzhi.solidwaste.common.service.RedisService;
+import com.anzhi.solidwaste.enterprise.dto.WasteCategoryDto;
+import com.anzhi.solidwaste.enterprise.entity.WasteCategory;
 import com.anzhi.solidwaste.system.entity.Menu;
 import com.anzhi.solidwaste.system.entity.Role;
 import com.anzhi.solidwaste.system.entity.User;
@@ -14,6 +17,7 @@ import com.anzhi.solidwaste.system.service.UserService;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -23,6 +27,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -162,7 +167,21 @@ public class CacheServiceImpl implements CacheService {
 
     }
 
+    @Override
+    public void saveWasteCategories(List<WasteCategoryDto> wasteCategoryDtoList) throws JsonProcessingException, RedisConnectException {
+        String s = redisService.set("wasteCategories", mapper.writeValueAsString(wasteCategoryDtoList));
+        log.info("msg" + s);
+    }
 
-
+    @Override
+    public List<WasteCategoryDto> getWasteCategories() throws Exception {
+        String categories = this.redisService.get("wasteCategories");
+        if(StringUtils.isBlank(categories)){
+            throw new Exception();
+        }else {
+            JavaType type = mapper.getTypeFactory().constructParametricType(List.class, WasteCategoryDto.class);
+            return this.mapper.readValue(categories, type);
+        }
+    }
 }
 

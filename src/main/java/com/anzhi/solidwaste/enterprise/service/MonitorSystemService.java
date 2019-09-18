@@ -3,7 +3,9 @@ package com.anzhi.solidwaste.enterprise.service;
 import com.anzhi.solidwaste.common.domain.QueryRequest;
 import com.anzhi.solidwaste.enterprise.entity.Enterprise;
 import com.anzhi.solidwaste.enterprise.entity.MonitorSystem;
+import com.anzhi.solidwaste.enterprise.search.AreaSearch;
 import com.anzhi.solidwaste.enterprise.search.MonitorSearch;
+import com.anzhi.solidwaste.enterprise.vo.IndexVo;
 import com.anzhi.solidwaste.enterprise.vo.MonitorRealTimeVo;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -26,5 +28,14 @@ public interface MonitorSystemService extends IService<MonitorSystem> {
     IPage<Enterprise> listAll(QueryRequest queryRequest, MonitorSearch monitorSearch);
 
     List<MonitorRealTimeVo> listAll1(QueryRequest queryRequest, MonitorSearch monitorSearch);
+
+
+    /**
+     * 查找首页监控概览所需数据
+     * @param areaSearch
+     * @return
+     */
+    IndexVo findIndexInfo(AreaSearch areaSearch);
+
 
 }

@@ -1,9 +1,11 @@
 package com.anzhi.solidwaste.enterprise.mapper;
 
+import com.anzhi.solidwaste.common.domain.QueryRequest;
 import com.anzhi.solidwaste.enterprise.entity.MonitorData;
 import com.anzhi.solidwaste.enterprise.search.DataSearch;
 import com.anzhi.solidwaste.enterprise.vo.HistoryDataVo;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -17,5 +19,5 @@ public interface MonitorDataMapper extends BaseMapper<MonitorData> {
      * @param dataSearch
      * @return
      */
-    List<HistoryDataVo> findHistoryDatas(DataSearch dataSearch);
+    List<HistoryDataVo> findHistoryDatas(@Param("queryRequest") QueryRequest queryRequest, @Param("dataSearch") DataSearch dataSearch);
 }

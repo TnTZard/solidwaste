@@ -49,6 +49,9 @@ public class Depot implements Serializable {
     @ApiModelProperty(value = "修改时间")
     private LocalDateTime gmtModified;
 
+    @ApiModelProperty(value = "街道ID")
+    private Integer street;
+
     /**
      *  监测系统 仓库 1<-->1 监测系统
      */

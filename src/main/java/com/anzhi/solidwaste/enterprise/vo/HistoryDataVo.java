@@ -28,7 +28,7 @@ public class HistoryDataVo {
     @ApiModelProperty(value = "氨浓度(mg/Nm3)")
     private String ammonia;
 
-    @ApiModelProperty(value = "氧气浓度(mg/Nm3")
+    @ApiModelProperty(value = "氧气浓度(mg/Nm3)")
     private String oxygen;
 
 }

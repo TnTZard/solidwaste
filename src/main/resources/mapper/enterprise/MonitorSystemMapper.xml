@@ -35,9 +35,71 @@
             </if>
             <if test="monitorSearch.enterpriseName != null and monitorSearch.enterpriseName != ''">
                 e.`name` = #{ monitorSearch.enterpriseName }
+        </if>
+        </where>
+    </select>
+
+    <select id="findIndecVo" resultType="com.anzhi.solidwaste.enterprise.vo.IndexVo">
+
+    </select>
+
+    <sql id="areaSearch">
+
+        left join area a on (s.`area_id` = a.`id`)
+        <where>
+            <if test="street != null and street != ''">
+                s.`name` = #{street}
+            </if>
+            <if test="area != null and area != ''">
+                a.`name` = #{area}
             </if>
         </where>
+    </sql>
 
+    <select id="getEnterpriseCount" resultType="java.lang.Integer">
+        select count(*) from enterprise
+        left join street s on (enterprise.`street` = s.`id`)
+        <include refid="areaSearch"></include>
+    </select>
+
+    <select id="getDepotCount" resultType="java.lang.Integer">
+        select count(*) from depot
+        left join street s on (depot.`street` = s.`id`)
+        <include refid="areaSearch"></include>
+    </select>
+
+
+
+
+    <select id="getAllEnterpriseByArea" resultType="com.anzhi.solidwaste.enterprise.vo.EnterpriseVo">
+        select
+                e.`name`               as enterpriseName,
+                e.`registered_address` as address,
+                sum(hw.`exist_amount`) as wasteStock
+        from enterprise as e
+        left join depot      as d on (d.`enterprise_name` = e.`name`)
+        left join hazardous_waste as hw on (hw.`depot_id` = d.`depot_id`)
+        left join street     as s on (e.`street` = s.`id`)
+        <include refid="areaSearch"></include>
+        group by e.`name`, e.`registered_address`
+    </select>
+
+    <select id="getWasteCount" resultType="java.lang.String">
+        select distinct hw.`waste_category`
+        from hazardous_waste as hw
+        left join depot as d on(hw.`depot_id` = d.`depot_id`)
+        left join enterprise e on (d.`enterprise_name` = e.`name`)
+        left join street s on (e.`street` = s.`id`)
+        <include refid="areaSearch"></include>
+    </select>
+
+    <select id="getWasteAmount" resultType="java.lang.Integer">
+        select IFNULL(sum(hw.`exist_amount`),0)
+        from hazardous_waste as hw
+        left join depot as d on(hw.`depot_id` = d.`depot_id`)
+        left join enterprise e on (d.`enterprise_name` = e.`name`)
+        left join street s on (e.`street` = s.`id`)
+        <include refid="areaSearch"></include>
     </select>
 
 

@@ -11,8 +11,8 @@ public class UserDto {
     @ApiModelProperty(value = "账号")
     private String account;
 
-    @ApiModelProperty(value = "密码(默认anzhi）")
-    private String password;
+    @ApiModelProperty(value = "角色")
+    private Integer roleId;
 
 
     public String getAccount() {
@@ -23,11 +23,11 @@ public class UserDto {
         this.account = account;
     }
 
-    public String getPassword() {
-        return password;
+    public Integer getRoleId() {
+        return roleId;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setRoleId(Integer roleId) {
+        this.roleId = roleId;
     }
 }

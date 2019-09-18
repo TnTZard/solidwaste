@@ -1,11 +1,16 @@
 package com.anzhi.solidwaste.common.service;
 
 
+import com.anzhi.solidwaste.common.exception.RedisConnectException;
+import com.anzhi.solidwaste.enterprise.dto.WasteCategoryDto;
+import com.anzhi.solidwaste.enterprise.entity.WasteCategory;
 import com.anzhi.solidwaste.system.entity.Menu;
 import com.anzhi.solidwaste.system.entity.Role;
 import com.anzhi.solidwaste.system.entity.User;
+import com.fasterxml.jackson.core.JsonProcessingException;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -118,5 +123,15 @@ public interface CacheService {
      */
     void deleteUserConfigs(String userId) throws Exception;
 
+    /**
+     * 缓存危废类别信息
+     */
+    void saveWasteCategories(List<WasteCategoryDto> wasteCategoryDtoList) throws JsonProcessingException, RedisConnectException;
 
+    /**
+     * 从缓存中获取危废类别信息
+     * @return
+     * @throws Exception
+     */
+    List<WasteCategoryDto> getWasteCategories() throws Exception;
 }

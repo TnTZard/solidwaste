@@ -28,14 +28,23 @@ public class WasteCategory implements Serializable {
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
-    @ApiModelProperty(value = "危废类别名")
-    private String name;
-
-    @ApiModelProperty(value = "仓库编号")
-    private String depotId;
-
     @ApiModelProperty(value = "危废类别代码")
+    private String categoryCode;
+
+    @ApiModelProperty(value = "危废类别名")
+    private String categoryName;
+
+    @ApiModelProperty(value = "行业来源")
+    private String source;
+
+    @ApiModelProperty(value = "废物代码")
     private String wasteCode;
+
+    @ApiModelProperty(value = "描述")
+    private String description;
+
+    @ApiModelProperty(value = "危险特性")
+    private String feature;
 
     @ApiModelProperty(value = "创建时间")
     private LocalDateTime gmtCreate;

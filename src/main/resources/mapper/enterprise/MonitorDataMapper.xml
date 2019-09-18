@@ -18,22 +18,22 @@
         left join monitor_system as ms on(ms.`monitor_name` = md.`monitor_name`)
         left join depot as d on(d.`depot_id` = ms.`depot_id`)
         <where>
-            <if test="depotName != null and depotName != ''">
-                d.`depot_id` = #{depotName}
+            <if test="dataSearch.depotName != null and dataSearch.depotName != ''">
+                d.`depot_id` = #{dataSearch.depotName}
             </if>
-            <if test="enterpriseName != null and enterpriseName != ''">
-                d.`enterprise_name` = #{ enterpriseName }
+            <if test="dataSearch.enterpriseName != null and dataSearch.enterpriseName != ''">
+                d.`enterprise_name` = #{ dataSearch.enterpriseName }
             </if>
-            <if test=" startTime != null and startTime != ''">
-                and md.`gmt_monitor` > #{startTime}
+            <if test=" dataSearch.startTime != null and dataSearch.startTime != ''">
+                and md.`gmt_monitor` > #{dataSearch.startTime}
             </if>
-            <if test=" endTime != null and endTime != ''">
+            <if test=" dataSearch.endTime != null and dataSearch.endTime != ''">
                 <![CDATA[
-				  and md.`gmt_monitor` < #{endTime}
+				  and md.`gmt_monitor` < #{dataSearch.endTime}
 			    ]]>
             </if>
         </where>
+        limit ${queryRequest.pageNum}, ${queryRequest.pageSize}
     </select>
-
 
 </mapper>

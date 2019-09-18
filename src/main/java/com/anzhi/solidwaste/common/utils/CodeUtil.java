@@ -40,7 +40,6 @@ public class CodeUtil {
 	 * 生成事件编号
 	 * 按日期生成前八位 后四位随机生成
 	 */
-	
 	public static String createEventId(){		
 		SimpleDateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");	
 		StringBuffer str = new StringBuffer(df.format(new Date()));	

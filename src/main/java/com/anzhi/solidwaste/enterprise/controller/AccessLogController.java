@@ -28,15 +28,6 @@ public class AccessLogController {
     @Autowired
     private AccessLogService accessLogService;
 
-    @PostMapping("/")
-    public AzResponse add(@Validated @RequestBody Object vo){
-        return null;
-    }
-
-    @GetMapping("/")
-    public AzResponse<AccessLog> get(@ApiParam(name = "id", value = "id") @RequestParam String id){
-        return null;
-    }
 
     @ApiOperation("门禁列表")
     @GetMapping("/page")
@@ -45,13 +36,27 @@ public class AccessLogController {
         return new AzResponse(true, result, 200, "查询成功");
     }
 
-    @PutMapping("/")
-    public AzResponse update(@Validated @RequestBody Object vo){
-        return null;
-    }
+//    @PostMapping("/")
+//    public AzResponse add(@Validated @RequestBody Object vo){
+//        return null;
+//    }
+//
+//    @GetMapping("/")
+//    public AzResponse<AccessLog> get(@ApiParam(name = "id", value = "id") @RequestParam String id){
+//        return null;
+//    }
+//
+//
+//
+//    @PutMapping("/")
+//    public AzResponse update(@Validated @RequestBody Object vo){
+//        return null;
+//    }
+//
+//    @DeleteMapping("/")
+//    public AzResponse delete(@ApiParam(name = "id", value = "id") @RequestParam String id){
+//        return null;
+//    }
 
-    @DeleteMapping("/")
-    public AzResponse delete(@ApiParam(name = "id", value = "id") @RequestParam String id){
-        return null;
-    }
+
 }
